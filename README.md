@@ -77,3 +77,13 @@ restaurant-app/
 |       |-- BranchManager.java
 |-- data/
 |   |-- branches.csv
+
+Customer Interaction Module
+restaurant-app/
+|-- src/
+|   |-- customer/
+|       |-- Table.java
+|       |-- CustomerInteractionManager.java
+|       |-- Menu.java
+|-- data/
+|   |-- menu.csv
