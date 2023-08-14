@@ -1,25 +1,26 @@
 package order;
 
-import java.util.*;
+import java.util.List;
 
 public class Order {
-    private int tableNumber;
-    private List<FoodItem> items;
+    private String id;
+    private List<OrderItem> items;
+    private String status;
     private double totalAmount;
 
-    public Order(int tableNumber) {
-        this.tableNumber = tableNumber;
-        this.items = new ArrayList<>();
+    public Order(String id, List<OrderItem> items) {
+        this.id = id;
+        this.items = items;
+        this.status = "Placed";
+        calculateTotalAmount();
     }
 
-    public void addItem(FoodItem item) {
-        items.add(item);
-        totalAmount += item.getPrice();
+    public void updateStatus(String status) {
+        this.status = status;
     }
 
-    public void removeItem(FoodItem item) {
-        items.remove(item);
-        totalAmount -= item.getPrice();
+    private void calculateTotalAmount() {
+        totalAmount = items.stream().mapToDouble(OrderItem::getTotalPrice).sum();
     }
 
     // Getters and setters

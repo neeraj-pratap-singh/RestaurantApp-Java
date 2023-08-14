@@ -4,9 +4,10 @@ import java.util.*;
 import java.io.*;
 
 public class OrderManager {
-    private List<Order> orders = new ArrayList<>();
-    
+    private List<Order> orders;
+
     public OrderManager() {
+        orders = new ArrayList<>();
         loadOrders();
     }
 
@@ -15,13 +16,16 @@ public class OrderManager {
         saveOrders();
     }
 
-    public void cancelOrder(Order order) {
-        orders.remove(order);
-        saveOrders();
+    public void updateOrderStatus(String orderId, String status) {
+        Order order = getOrder(orderId);
+        if (order != null) {
+            order.updateStatus(status);
+            saveOrders();
+        }
     }
 
-    public List<Order> getOrders() {
-        return Collections.unmodifiableList(orders);
+    public Order getOrder(String orderId) {
+        return orders.stream().filter(order -> order.getId().equals(orderId)).findFirst().orElse(null);
     }
 
     private void loadOrders() {

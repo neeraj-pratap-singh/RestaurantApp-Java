@@ -87,3 +87,13 @@ restaurant-app/
 |       |-- Menu.java
 |-- data/
 |   |-- menu.csv
+
+Order Management Module
+restaurant-app/
+|-- src/
+|   |-- order/
+|       |-- Order.java
+|       |-- OrderItem.java
+|       |-- OrderManager.java
+|-- data/
+|   |-- orders.csv
