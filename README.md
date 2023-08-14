@@ -50,3 +50,21 @@ restaurant-app/
 |       |-- OrderManager.java
 |-- data/
 |   |-- orders.csv
+
+Employee Management Module
+restaurant-app/
+|-- src/
+|   |-- employee/
+|       |-- Employee.java
+|       |-- EmployeeManager.java
+|-- data/
+|   |-- employees.csv
+
+User Authentication Module
+restaurant-app/
+|-- src/
+|   |-- auth/
+|       |-- User.java
+|       |-- AuthenticationManager.java
+|-- data/
+|   |-- users.csv
