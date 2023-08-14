@@ -97,3 +97,12 @@ restaurant-app/
 |       |-- OrderManager.java
 |-- data/
 |   |-- orders.csv
+
+Reporting & Analytics Module
+restaurant-app/
+|-- src/
+|   |-- analytics/
+|       |-- ReportGenerator.java
+|       |-- AnalyticsManager.java
+|-- data/
+|   |-- reports/
