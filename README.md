@@ -1,6 +1,7 @@
 # RestaurantApp-Java
 Management of Orders and Collections for Quick-Bites Restaurant
 
+Basic layout
 restaurant-app/
 |-- src/
 |   |-- Main.java
@@ -17,6 +18,7 @@ restaurant-app/
 |   |-- orders.csv
 |   |-- tables.csv
 
+auth layout
 restaurant-app/
 |-- src/
 |   |-- Main.java
@@ -31,6 +33,7 @@ restaurant-app/
 |-- data/
 |   |-- users.csv
 
+menu layout
 restaurant-app/
 |-- src/
 |   |-- menu/
@@ -38,3 +41,12 @@ restaurant-app/
 |       |-- MenuManager.java
 |-- data/
 |   |-- menu.csv
+
+order layout
+restaurant-app/
+|-- src/
+|   |-- order/
+|       |-- Order.java
+|       |-- OrderManager.java
+|-- data/
+|   |-- orders.csv
