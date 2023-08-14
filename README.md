@@ -68,3 +68,12 @@ restaurant-app/
 |       |-- AuthenticationManager.java
 |-- data/
 |   |-- users.csv
+
+Branch Management Module
+restaurant-app/
+|-- src/
+|   |-- branch/
+|       |-- Branch.java
+|       |-- BranchManager.java
+|-- data/
+|   |-- branches.csv
