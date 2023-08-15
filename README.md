@@ -18,7 +18,7 @@ restaurant-app/
 |   |-- orders.csv
 |   |-- tables.csv
 
-auth layout
+authentication layout
 restaurant-app/
 |-- src/
 |   |-- Main.java
@@ -59,15 +59,6 @@ restaurant-app/
 |       |-- EmployeeManager.java
 |-- data/
 |   |-- employees.csv
-
-User Authentication Module
-restaurant-app/
-|-- src/
-|   |-- auth/
-|       |-- User.java
-|       |-- AuthenticationManager.java
-|-- data/
-|   |-- users.csv
 
 Branch Management Module
 restaurant-app/
