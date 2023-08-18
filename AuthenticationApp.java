@@ -128,7 +128,7 @@ public class AuthenticationApp {
 
     private static void manageAdmin(Scanner scanner) {
         while (true) {
-            System.out.println("1. List Branches\n2. Add Branch\n3. Manage Branch\n4. View Logs\n5. List Users\n6. Exit");
+            System.out.println("1. List Branches\n2. Add Branch\n3. Manage Branch\n4. View Logs\n5. List Users\n6. Manage Menu\n7. Exit");
             String choice = scanner.nextLine();
 
             switch (choice) {
@@ -148,6 +148,9 @@ public class AuthenticationApp {
                     listUsers();
                     break;
                 case "6":
+                    MenuManager.manageMenu(scanner);
+                    break;
+                case "7":
                     return;
                 default:
                     System.out.println("Invalid choice!");
@@ -157,7 +160,7 @@ public class AuthenticationApp {
 
     private static void manageBranchManager(Scanner scanner, Branch branch) {
         while (true) {
-            System.out.println("1. List Users in Branch\n2. Add User\n3. Update User\n4. Remove User\n5. Exit");
+            System.out.println("1. List Users in Branch\n2. Add User\n3. Update User\n4. Remove User\n5. Manage Menu\n6. Exit");
             String choice = scanner.nextLine();
 
             switch (choice) {
@@ -174,6 +177,9 @@ public class AuthenticationApp {
                     removeUser(scanner, branch);
                     break;
                 case "5":
+                    MenuManager.manageMenu(scanner);
+                    break;
+                case "6":
                     return;
                 default:
                     System.out.println("Invalid choice!");
