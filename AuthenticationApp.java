@@ -29,9 +29,23 @@ public class AuthenticationApp {
             manageAdmin(scanner);
         } else if ("BranchManager".equals(user.getRole())) {
             manageBranchManager(scanner, user.getBranch());
+        } else if ("CustomerTable".equals(user.getRole())) {
+            manageCustomerTable(scanner);
+        } else if ("Employee".equals(user.getRole())) {
+            manageEmployee(scanner);
         }
 
         scanner.close();
+    }
+
+    private static void manageCustomerTable(Scanner scanner) {
+        CustomerTableFlow customerTableFlow = new CustomerTableFlow();
+        customerTableFlow.manageCustomerTable(scanner);
+    }
+
+    private static void manageEmployee(Scanner scanner) {
+        EmployeeFlow employeeFlow = new EmployeeFlow();
+        employeeFlow.manageEmployee(scanner);
     }
 
     private static void loadBranches() {
@@ -53,14 +67,14 @@ public class AuthenticationApp {
     }
 
     private static void saveBranches() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(BRANCHES_CSV_FILE))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(BRANCHES_CSV_FILE, true))) { // Note the 'true' argument for appending
             for (Branch branch : branches.values()) {
                 writer.println(branch.getBranchCode() + "," + branch.getCityName() + "," + branch.getAddress() + "," + branch.getPincode());
             }
         } catch (IOException e) {
             System.out.println("Error saving branches: " + e.getMessage());
         }
-    }
+    }    
 
     private static void addBranch(Scanner scanner) {
         System.out.print("Enter branch city name: ");
@@ -95,7 +109,7 @@ public class AuthenticationApp {
                 String role = data[2];
                 String branchName = data.length > 3 ? data[3] : null;
 
-                Branch branch = branchName != null ? branches.get(branchName) : null;
+                Branch branch = branchName != null ? findBranchByCityName(branchName) : null;
                 users.put(username, new User(username, password, role, branch));
                 System.out.println(users);
             }
@@ -103,6 +117,16 @@ public class AuthenticationApp {
             System.out.println("Error loading users: " + e.getMessage());
         }
     }
+
+    private static Branch findBranchByCityName(String cityName) {
+        for (Branch branch : branches.values()) {
+            if (branch.getCityName().equalsIgnoreCase(cityName)) {
+                return branch;
+            }
+        }
+        return null;
+    }
+    
 
     private static void saveUsers() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(USERS_CSV_FILE))) {
@@ -128,7 +152,7 @@ public class AuthenticationApp {
 
     private static void manageAdmin(Scanner scanner) {
         while (true) {
-            System.out.println("1. List Branches\n2. Add Branch\n3. Manage Branch\n4. View Logs\n5. List Users\n6. Manage Menu\n7. Exit");
+            System.out.println("1. List Branches\n2. Add Branch\n3. Manage Branch\n4. List Users\n5. Manage Menu\n6. Exit");
             String choice = scanner.nextLine();
 
             switch (choice) {
@@ -142,15 +166,12 @@ public class AuthenticationApp {
                     manageBranch(scanner); // Admin can manage any branch
                     break;
                 case "4":
-                    viewLogs();
-                    break;
-                case "5":
                     listUsers();
                     break;
-                case "6":
+                case "5":
                     MenuManager.manageMenu(scanner);
                     break;
-                case "7":
+                case "6":
                     return;
                 default:
                     System.out.println("Invalid choice!");
@@ -192,12 +213,20 @@ public class AuthenticationApp {
             System.out.println("No branches available!");
             return;
         }
-
+    
         System.out.println("List of Branches:");
-        for (String branchName : branches.keySet()) {
-            System.out.println("- " + branchName);
+        for (Branch branch : branches.values()) {
+            String branchCode = branch.getBranchCode();
+            String cityName = branch.getCityName();
+            String address = branch.getAddress();
+            String pincode = branch.getPincode();
+            System.out.println("- Branch Code: " + branchCode);
+            System.out.println("  City Name: " + cityName);
+            System.out.println("  Address: " + address);
+            System.out.println("  Pincode: " + pincode);
         }
     }
+    
 
     private static void listUsers() {
         if (users.isEmpty()) {
@@ -227,19 +256,19 @@ public class AuthenticationApp {
     }
 
     private static void manageBranch(Scanner scanner) {
-        System.out.print("Enter branch name to manage: ");
-        String branchName = scanner.nextLine();
-        
-        Branch branch = branches.get(branchName);
+        System.out.print("Enter branch code to manage: ");
+        String branchCode = scanner.nextLine();
+    
+        Branch branch = branches.get(branchCode);
         if (branch == null) {
             System.out.println("Branch not found!");
             return;
         }
-
+    
         while (true) {
             System.out.println("1. Add User\n2. Update User\n3. Remove User\n4. Exit");
             String choice = scanner.nextLine();
-
+    
             switch (choice) {
                 case "1":
                     addUser(scanner, branch);
@@ -257,6 +286,7 @@ public class AuthenticationApp {
             }
         }
     }
+    
 
     private static void addUser(Scanner scanner, Branch branch) {
         System.out.print("Enter username: ");
@@ -315,9 +345,4 @@ public class AuthenticationApp {
         System.out.println("User removed successfully!");
     }
 
-    private static void viewLogs() {
-        for (String log : activityLogs) {
-            System.out.println(log);
-        }
-    }
 }

@@ -35,6 +35,7 @@ public class MenuManager {
     public static void loadMenu() {
         try (BufferedReader reader = new BufferedReader(new FileReader(MENU_CSV_FILE))) {
             String line;
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
                 String name = data[0];
@@ -120,5 +121,10 @@ public class MenuManager {
         } else {
             System.out.println("Menu item not found!");
         }
+    }
+
+    public static double getItemPrice(String itemId) {
+        MenuItem menuItem = menuItems.get(itemId);
+        return menuItem != null ? menuItem.getPrice() : 0;
     }
 }

@@ -1,25 +1,23 @@
-Name,Price,Category
-Vegetable Samosa,59.99,Indian Starters
-Paneer Tikka,79.99,Indian Starters
-Tandoori Chicken,99.99,Indian Starters
-Chicken Curry,129.99,Indian Main Course
-Palak Paneer,109.99,Indian Main Course
-Vegetable Biryani,119.99,Indian Main Course
-Dal Makhani,139.99,Indian Main Course
-Masala Dosa,89.99,South Indian Delights
-Uttapam,79.99,South Indian Delights
-Coconut Chutney,39.99,South Indian Delights
-Gulab Jamun,49.99,Desserts
-Rasmalai,69.99,Desserts
-Mango Kulfi,59.99,Desserts
-Kheer,49.99,Desserts
 Masala Chai,39.99,Beverages
-Mango Lassi,49.99,Beverages
-Fresh Lime Soda,29.99,Beverages
-Dal Makhani,129.99,Indian Main Course
-Butter Naan,29.99,Indian Breads
+Paneer Tikka,79.99,Indian Starters
+Gulab Jamun,49.99,Desserts
+Mango Kulfi,59.99,Desserts
+Uttapam,79.99,South Indian Delights
+Kheer,49.99,Desserts
+Vegetable Biryani,119.99,Indian Main Course
 Jeera Rice,49.99,Indian Breads
-Aloo Paratha,59.99,Indian Breads
+Dal Makhani,129.99,Indian Main Course
+Tandoori Chicken,99.99,Indian Starters
 Papdi Chaat,49.99,Indian Street Food
-Pav Bhaji,79.99,Indian Street Food
+Vegetable Samosa,59.99,Indian Starters
 Chole Bhature,89.99,Indian Street Food
+Coconut Chutney,39.99,South Indian Delights
+Aloo Paratha,59.99,Indian Breads
+Chicken Curry,129.99,Indian Main Course
+Butter Naan,29.99,Indian Breads
+Palak Paneer,109.99,Indian Main Course
+Masala Dosa,89.99,South Indian Delights
+Rasmalai,69.99,Desserts
+Fresh Lime Soda,29.99,Beverages
+Pav Bhaji,79.99,Indian Street Food
+Mango Lassi,49.99,Beverages
