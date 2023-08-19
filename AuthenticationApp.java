@@ -30,7 +30,7 @@ public class AuthenticationApp {
         } else if ("BranchManager".equals(user.getRole())) {
             manageBranchManager(scanner, user.getBranch());
         } else if ("CustomerTable".equals(user.getRole())) {
-            manageCustomerTable(scanner);
+            manageCustomerTable(scanner, user.getUsername());
         } else if ("Employee".equals(user.getRole())) {
             manageEmployee(scanner);
         }
@@ -38,8 +38,8 @@ public class AuthenticationApp {
         scanner.close();
     }
 
-    private static void manageCustomerTable(Scanner scanner) {
-        CustomerTableFlow customerTableFlow = new CustomerTableFlow();
+    private static void manageCustomerTable(Scanner scanner, String tableName) {
+        CustomerTableFlow customerTableFlow = new CustomerTableFlow(tableName); // Pass table name to constructor
         customerTableFlow.manageCustomerTable(scanner);
     }
 

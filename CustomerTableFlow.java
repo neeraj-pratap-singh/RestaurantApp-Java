@@ -4,10 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CustomerTableFlow {
 
     private List<Order> orders = new ArrayList<>();
+    private String customerTableName;
+    private static AtomicInteger orderCounter = new AtomicInteger(0); // To ensure unique 4-digit order IDs
+
+    public CustomerTableFlow(String customerTableName) {
+        this.customerTableName = customerTableName;
+    }
 
     public void manageCustomerTable(Scanner scanner) {
         MenuManager.loadMenu();
@@ -45,8 +52,8 @@ public class CustomerTableFlow {
             System.out.println("Enter quantity:");
             int quantity = Integer.parseInt(scanner.nextLine());
 
-            String orderId = UUID.randomUUID().toString();
-            Order order = new Order(orderId, itemId, quantity);
+            int orderId = orderCounter.incrementAndGet(); // Incrementing order ID
+            Order order = new Order(orderId, itemId, quantity, customerTableName);
             orders.add(order);
 
             // Record order in CSV file with status "order accepted"
@@ -80,13 +87,14 @@ public class CustomerTableFlow {
             total += price * order.getQuantity();
         }
 
-        System.out.println("Total bill: $" + total);
+        System.out.println("Total bill: Rs." + total);
         orders.clear(); // Clearing orders after billing
     }
 
     private void writeOrderToCsv(Order order, String status) {
         try (FileWriter writer = new FileWriter("orders.csv", true)) {
             writer.write(order.getOrderId() + "," + order.getItemId() + "," +
+                         order.getOrderDate() + "," + customerTableName + "," +
                          MenuManager.getItemPrice(order.getItemId()) + "," +
                          order.getQuantity() + "," + status + "\n");
         } catch (IOException e) {
