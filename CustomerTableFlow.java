@@ -10,6 +10,7 @@ public class CustomerTableFlow {
     private List<Order> orders = new ArrayList<>();
 
     public void manageCustomerTable(Scanner scanner) {
+        MenuManager.loadMenu();
         System.out.println("Welcome to Customer Table Management");
         while (true) {
             System.out.println("1. View Menu\n2. Place Order\n3. Cancel Order\n4. Ask for Bill\n5. Exit");
@@ -37,7 +38,7 @@ public class CustomerTableFlow {
 
     private void placeOrder(Scanner scanner) {
         while (true) {
-            System.out.println("Enter menu item ID to order or 'done' to finish:");
+            System.out.println("Enter menu item Name to order or 'done' to finish:");
             String itemId = scanner.nextLine();
             if ("done".equalsIgnoreCase(itemId)) break;
 
