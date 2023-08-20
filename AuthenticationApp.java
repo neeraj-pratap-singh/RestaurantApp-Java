@@ -1,6 +1,7 @@
 
 import java.util.*;
 import java.io.*;
+import java.text.SimpleDateFormat;
 
 public class AuthenticationApp {
 
@@ -152,7 +153,7 @@ public class AuthenticationApp {
 
     private static void manageAdmin(Scanner scanner) {
         while (true) {
-            System.out.println("1. List Branches\n2. Add Branch\n3. Manage Branch\n4. List Users\n5. Manage Menu\n6. Exit");
+            System.out.println("1. List Branches\n2. Add Branch\n3. Manage Branch\n4. List Users\n5. Manage Menu\n6. Generate Reports\n7. Exit");
             String choice = scanner.nextLine();
 
             switch (choice) {
@@ -172,6 +173,9 @@ public class AuthenticationApp {
                     MenuManager.manageMenu(scanner);
                     break;
                 case "6":
+                    generateReports(scanner, null); // Pass null as the branch, meaning all branches
+                    break;
+                case "7":
                     return;
                 default:
                     System.out.println("Invalid choice!");
@@ -181,7 +185,7 @@ public class AuthenticationApp {
 
     private static void manageBranchManager(Scanner scanner, Branch branch) {
         while (true) {
-            System.out.println("1. List Users in Branch\n2. Add User\n3. Update User\n4. Remove User\n5. Manage Menu\n6. Exit");
+            System.out.println("1. List Users in Branch\n2. Add User\n3. Update User\n4. Remove User\n5. Manage Menu\n6. Generate Reports\n7. Exit");
             String choice = scanner.nextLine();
 
             switch (choice) {
@@ -201,6 +205,9 @@ public class AuthenticationApp {
                     MenuManager.manageMenu(scanner);
                     break;
                 case "6":
+                    generateReports(scanner, branch); // Pass the specific branch
+                    break;
+                case "7":
                     return;
                 default:
                     System.out.println("Invalid choice!");
@@ -254,6 +261,69 @@ public class AuthenticationApp {
             System.out.println("No users found in this branch!");
         }
     }
+
+    // Method to generate the reports
+    private static void generateReports(Scanner scanner, Branch branch) {
+        System.out.println("1. Monthly Summary");
+        System.out.print("Choose the report type: ");
+        String choice = scanner.nextLine();
+        if ("1".equals(choice)) {
+            generateMonthlySummary(branch);
+        } else {
+            System.out.println("Invalid choice!");
+        }
+    }
+
+    private static void generateMonthlySummary(Branch branch) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        String currentMonth = sdf.format(new Date());
+        double total = 0;
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader("orders.csv"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                String date = data[2];
+                String tableName = data[3];
+                double price = Double.parseDouble(data[4]);
+                int quantity = Integer.parseInt(data[5]);
+                
+                // Retrieve branch code based on the table name
+                String branchCode = getBranchCodeByTableName(tableName);
+    
+                if (branch != null && (branchCode == null || !branchCode.equals(branch.getBranchCode()))) {
+                    continue; // Skip orders from other branches if branch is specified
+                }
+    
+                if (date.startsWith(currentMonth)) {
+                    total += price * quantity;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading orders: " + e.getMessage());
+        }
+        
+        System.out.println("Monthly Summary for " + (branch != null ? "Branch: " + branch.getCityName() : "All Branches"));
+        System.out.println("Total Revenue: Rs." + total);
+    }
+    
+    // Retrieve branch code based on the table name from the users.csv file
+    private static String getBranchCodeByTableName(String tableName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("users.csv"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                String table = data[0]; // table name is present in column 0
+                if (tableName.equals(table)) {
+                    return data[3]; // branch name is present in column 3
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading users: " + e.getMessage());
+        }
+        return null; // Return null if no matching branch found
+    }
+    
 
     private static void manageBranch(Scanner scanner) {
         System.out.print("Enter branch code to manage: ");
