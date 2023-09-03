@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Random;
 
 public class CustomerTableFlow {
 
     private List<Order> orders = new ArrayList<>();
     private String customerTableName;
-    private static AtomicInteger orderCounter = new AtomicInteger(0); // To ensure unique 4-digit order IDs
+    // private static AtomicInteger orderCounter = new AtomicInteger(0); // To ensure unique 4-digit order IDs
+    private static Random random = new Random();
+
+    public static int generateRandomOrderID() {
+        return 1000 + random.nextInt(9000); // Generates a random 4-digit number between 1000 and 9999
+    }
 
     public CustomerTableFlow(String customerTableName) {
         this.customerTableName = customerTableName;
@@ -52,7 +58,7 @@ public class CustomerTableFlow {
             System.out.println("Enter quantity:");
             int quantity = Integer.parseInt(scanner.nextLine());
 
-            int orderId = orderCounter.incrementAndGet(); // Incrementing order ID
+            int orderId = generateRandomOrderID(); // Random order ID
             Order order = new Order(orderId, itemId, quantity, customerTableName);
             orders.add(order);
 
