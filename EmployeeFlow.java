@@ -63,7 +63,7 @@ public class EmployeeFlow {
                 if (line.startsWith(orderId)) {
                     String[] parts = line.split(",");
                     if (!"canceled".equals(parts[4]) && !"paid".equals(parts[4])) {
-                        writer.write(parts[0] + "," + parts[1] + "," + parts[2] + "," + parts[3] + "," + newStatus + "\n");
+                        writer.write(parts[0] + "," + parts[1] + "," + parts[2] + "," + parts[3] + "," + parts[4] + "," + parts[5] + "," + newStatus + "\n");
                     }
                 } else {
                     writer.write(line + "\n");
@@ -92,7 +92,7 @@ public class EmployeeFlow {
             for (String line : lines) {
                 if (line.startsWith(orderId)) {
                     String[] parts = line.split(",");
-                    writer.write(parts[0] + "," + parts[1] + "," + parts[2] + "," + parts[3] + "," + "paid" + "\n");
+                    writer.write(parts[0] + "," + parts[1] + "," + parts[2] + "," + parts[3] + "," + parts[4] + "," + parts[5] + "," + "paid" + "\n");
                 } else {
                     writer.write(line + "\n");
                 }
